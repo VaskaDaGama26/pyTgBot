@@ -28,8 +28,8 @@ volume = cast(interface, POINTER(IAudioEndpointVolume))
 
 # прописываем прокси-сервер
 apihelper.proxy = {'https':'http://10.0.48.52:3128'}
-# привязываем и объявляем бота 
-token = '5902652671:AAGpgDhhS_huIfoZcRxBvRUYJ6BKUe3rJd8'
+# привязываем и объявляем бота
+token = ''
 bot = telebot.TeleBot(token)
 
 # создаем обработчик сообщения /start
