@@ -1,22 +1,20 @@
 # Version 1.0.
 
 
-# Команды для начала работы (писать в консоль):
-## ffmpeg -version - предварительно скачав ffmpeg и поместив папку в C:\ затем прописав в path: C:\ffmpeg\bin
-## pip install pyTelegramBotAPI - установка интерфейса PyTelegramBot
+# cmd:
+## ffmpeg -version - before this install ffmpeg and add folder to path: C:\ffmpeg\bin
+## pip install pyTelegramBotAPI - installing interface PyTelegramBot
 ## pip install comtypes
 ## pip install pycaw
 
 
 # PyTeleBot_Sc20 
 
-# КОД ПРОГРАММЫ:
-
-# подключаем необходимые библиотеки для работы с ботом
+# adding all dirs for Bot
 import telebot
 from telebot import types
 from telebot import apihelper
-# подключаем необходимые библиотеки для воспроизведения аудиозаписей
+# adding all dirs for starting audio recordings
 import os
 import time
 from ctypes import cast, POINTER
@@ -26,17 +24,17 @@ devices = AudioUtilities.GetSpeakers()
 interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
 volume = cast(interface, POINTER(IAudioEndpointVolume))
 
-# прописываем прокси-сервер
-apihelper.proxy = {'https':'http://10.0.48.52:3128'}
-# привязываем и объявляем бота
+# proxy-server
+apihelper.proxy = {'https': #address}
+# initializing the bot
 token = ''
 bot = telebot.TeleBot(token)
 
-# создаем обработчик сообщения /start
+# creates event handler for /start command
 @bot.message_handler(commands=["start"])
 def start(m, res=False):
     
-    adm = [386557013, 886094257, 739135849, 1663039797, 870454221, 5702549606]
+    adm = [# Telegram IDs]
     if m.chat.id not in adm:
         bot.send_message(m.chat.id, 'Доступ заблокирован!')
     else:
@@ -48,10 +46,10 @@ def start(m, res=False):
         markup.row(info)
         bot.send_message(m.chat.id, 'Бот запущен:', reply_markup=markup)
         bot.send_message(m.chat.id, '📋Главное меню:', reply_markup=markup)
-# создаем обработчик сообщений в ответ на команды кнопок
+# creates messages handler from buttons values
 @bot.message_handler(content_types=['text'])
 def bot_message(m, res=False):
-        # скрипт при нажатии на кнопку "Информация"
+        # Information Button
         if m.text == 'Информация':
             markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
             item1=types.KeyboardButton("Инструкция")
@@ -59,13 +57,13 @@ def bot_message(m, res=False):
             markup.row(item1)
             markup.row(item2)
             bot.send_message(m.chat.id, '🤖 PythonTelegramBot 🤖\n\nVersion: 1.0\nCreated by Kirichenko V.', reply_markup=markup)
-        # скрипт при нажатии на кнопку "Инструкция"
+        # Instruction Button
         elif m.text == "Инструкция":
             bot.send_message(m.chat.id, 'Бот включает в себя такие разделы, как:\n\n1. Выбрать сигнал - позволяет выбрать нужное оповещение из предложенных и вывести через громкоговорите по школе.\n\n2. Записать сообщение - позволяет самому ввести текст, которых будет воспроизведён громкоговорителями.\n\n3. Информация - Содержит в себе краткие сведения о боте и данную инструкцию.')
-        # скрипт при нажатии на кнопку "Записать сообщение"
+        # Record the message Button
         elif m.text == "Записать сообщение":
             bot.send_message(m.chat.id, '⛔ Раздел находится в разработке ⛔')
-        # скрипт при нажатии на кнопку "Выбрать сигнал"
+        # Select Signal Button
         elif m.text == 'Выбрать сигнал':
             markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
             item1=types.KeyboardButton("1. Учебная тревога")
@@ -83,8 +81,8 @@ def bot_message(m, res=False):
             markup.row(back)
             bot.send_message(m.chat.id, '🔊Сигналы:', reply_markup=markup)
 
-        ## скрипты при выборе сигнала оповещения: 
-        # Кнопка 1
+        ## Alarm Signals: 
+        # Button 1
         elif m.text == '1. Учебная тревога':
             markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
             item1=types.KeyboardButton("ДА: 1. Учебная тревога")
@@ -99,7 +97,7 @@ def bot_message(m, res=False):
             os.startfile('1. TeachingAlarm.wav')
             time.sleep(60)
             volume.SetMasterVolumeLevel(-55.0, None)
-        # Кнопка 2
+        # Button 2
         elif m.text == '2. Минирование':
             markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
             item1=types.KeyboardButton("ДА: 2. Минирование")
@@ -114,7 +112,7 @@ def bot_message(m, res=False):
             os.startfile('2. Bomb.wav')
             time.sleep(60)
             volume.SetMasterVolumeLevel(-55.0, None)
-        # Кнопка 3
+        # Button 3
         elif m.text == '3. Закрыть двери':
             markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
             item1=types.KeyboardButton("ДА: 3. Закрыть двери")
@@ -129,7 +127,7 @@ def bot_message(m, res=False):
             os.startfile('3. CloseDoors.wav')
             time.sleep(60)
             volume.SetMasterVolumeLevel(-55.0, None)
-        # Кнопка 4
+        # Button 4
         elif m.text == '4. Открыть двери':
             markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
             item1=types.KeyboardButton("ДА: 4. Открыть двери")
@@ -144,7 +142,7 @@ def bot_message(m, res=False):
             os.startfile("4. OpenDoors.wav")
             time.sleep(60)
             volume.SetMasterVolumeLevel(-55.0, None)
-        # Кнопка 5
+        # Button 5
         elif m.text == '5. Воздушная тревога':
             markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
             item1=types.KeyboardButton("ДА: 5. Воздушная тревога")
@@ -159,7 +157,7 @@ def bot_message(m, res=False):
             os.startfile("5. AirAlarm.wav")
             time.sleep(60)
             volume.SetMasterVolumeLevel(-55.0, None)
-        # Кнопка 6
+        # Button 6
         elif m.text == '6. УЧЕБНАЯ воздушная тревога':
             markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
             item1=types.KeyboardButton("ДА: 6. УЧЕБНАЯ воздушная тревога")
@@ -174,7 +172,7 @@ def bot_message(m, res=False):
             os.startfile("6. TeachingAirAlarm.wav")
             time.sleep(60)
             volume.SetMasterVolumeLevel(-55.0, None)
-        # Кнопка 7
+        # Button 7
         elif m.text == '7. Проверка системы':
             markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
             item1=types.KeyboardButton("ДА: 7. Проверка системы")
@@ -189,7 +187,7 @@ def bot_message(m, res=False):
             os.startfile("7. SystemCheck.wav")
             time.sleep(60)
             volume.SetMasterVolumeLevel(-55.0, None)
-        # Кнопка 8
+        # Button 8
         elif m.text == '8. ЛОЖНАЯ тревога':
             markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
             item1=types.KeyboardButton("ДА: 8. ЛОЖНАЯ тревога")
@@ -206,7 +204,7 @@ def bot_message(m, res=False):
             volume.SetMasterVolumeLevel(-55.0, None)
 
 
-        # скрипт при нажатии на кнопку "В главное меню"
+        # Main Menu Button
         elif m.text == 'В главное меню':
             markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
             item1=types.KeyboardButton("Выбрать сигнал")
@@ -216,7 +214,7 @@ def bot_message(m, res=False):
             markup.row(settings)
             bot.send_message(m.chat.id, '📋Главное меню:', reply_markup=markup)
 
-        # скрипт при нажатии на кнопку "Вернуться"
+        # Back Button
         elif m.text == 'Вернуться':
             markup=types.ReplyKeyboardMarkup(resize_keyboard=True)
             item1=types.KeyboardButton("1. Учебная тревога")
@@ -234,6 +232,6 @@ def bot_message(m, res=False):
             markup.row(back)
             bot.send_message(m.chat.id, '🔊Сигналы:', reply_markup=markup)
 
-# проверка на получение запроса
+# check getting query
 bot.infinity_polling(none_stop=True, interval=0)
 
