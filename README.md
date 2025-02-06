@@ -1,6 +1,6 @@
 # pyTgBot
 
-> Python | Telegram API
+> Python | Tkinter | Telebot | Telegram API
 
 The bot is designed for the notification system of School No. 20:
 bot.py - bot code,
