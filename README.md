@@ -1,3 +1,3 @@
-Бот предназначен для системы оповещения МАОУ СОШ №20:
-bot.py - код бота,
-form.py/form.exe - код и исполнительные файлы формы для запуска и остановки бота в виде программы для Windows
+The bot is designed for the notification system of School No. 20:
+bot.py - bot code,
+form.py/form.exe - code and executable files of the form for starting and stopping the bot as a program for Windows
